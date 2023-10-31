@@ -1,109 +1,105 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
+    <title>MINDNESS Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #0023e8, #ff8a00);
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        select, button {
+            font-size: 16px;
+            margin: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        select {
+            border-radius: 5px;
+        }
+        button {
+            border-radius: 5px;
+        }
+        #quote {
+            margin: 20px;
+        }
+        #imageGallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .imageContainer {
+            margin: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script>
+        async function getQuotesAndImages() {
+            const category = document.getElementById("quoteCategory").value;
+            const numImages = parseInt(document.getElementById("numImages").value);
+            const apiUrl = `https://api.quotable.io/quotes?tags=${category}&limit=${numImages}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    const quoteContainer = document.getElementById("quote");
+                    quoteContainer.innerHTML = '';
+                    const imageGallery = document.getElementById("imageGallery");
+                    imageGallery.innerHTML = '';
+
+                    data.results.forEach(async (quote, index) => {
+                        const quoteText = quote.content;
+                        
+                        // Fetch or generate actual images here.
+                        const image = await fetchImage(); // Implement a function to fetch images.
+                        
+                        quoteContainer.innerHTML += `<p>${quoteText}</p>`;
+                        imageGallery.innerHTML += `<div class="imageContainer"><img src="${image}" alt="Quote Image ${index + 1}" /></div>`;
+                    });
+                } else {
+                    console.error("Error fetching quotes:", response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error("Error fetching quotes:", error);
+            }
+        }
+
+        // Implement a function to fetch or generate images.
+        async function fetchImage() {
+            // Replace with logic to fetch or generate actual images here.
+            // You can use an image API like Unsplash or generate images dynamically.
+            // For demonstration, we use a placeholder image URL.
+            return `https://via.placeholder.com/400x200.png?text=Scenic+Image`;
+        }
+    </script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;MINDNESS Quotes&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #0023e8, #ff8a00);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select, button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 5px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#quote {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#imageGallery {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.imageContainer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>img {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function getQuotesAndImages() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const category = document.getElementById("quoteCategory").value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const numImages = parseInt(document.getElementById("numImages").value);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const apiUrl = `https://api.quotable.io/quotes?tags=${category}&amp;limit=${numImages}`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetch(apiUrl);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (response.ok) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const data = await response.json();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const quoteContainer = document.getElementById("quote");</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>quoteContainer.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const imageGallery = document.getElementById("imageGallery");</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>imageGallery.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>data.results.forEach((quote, index) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const quoteText = quote.content;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// Fetch or generate actual images here.</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// You'll need to use image services or APIs for this.</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// For demonstration, we use placeholder images.</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const quoteImage = `https://via.placeholder.com/400x200.png?text=${encodeURIComponent(quoteText)}`;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>quoteContainer.innerHTML += `&lt;p&gt;${quoteText}&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>imageGallery.innerHTML += `&lt;div class="imageContainer"&gt;&lt;img src="${quoteImage}" alt="Quote Image ${index + 1}" /&gt;&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error("Error fetching quotes:", response.status, response.statusText);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error fetching quotes:", error);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Welcome to MINDNESS Quotes&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Select a category for your quotes:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;select id="quoteCategory"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="inspirational"&gt;Inspirational&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="motivational"&gt;Motivational&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="funny"&gt;Funny&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Number of Images to Generate:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="numImages" value="5" min="1" max="20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="getQuotesAndImages()"&gt;Get Quotes and Images&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="quote"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="imageGallery"&gt;&lt;/div&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>Welcome to MINDNESS Quotes</h1>
+    <p>Select a category for your quotes:</p>
+    <select id="quoteCategory">
+        <option value="inspirational">Inspirational</option>
+        <option value="motivational">Motivational</option>
+        <option value="funny">Funny</option>
+        <option value="Gaming">Gaming</option>
+    </select>
+    <p>Number of Images to Generate:</p>
+    <input type="number" id="numImages" value="5" min="1" max="20">
+    <button onclick="getQuotesAndImages()">Get Quotes and Images</button>
+    <div id="quote"></div>
+    <div id="imageGallery"></div>
 </body>
 </html>
